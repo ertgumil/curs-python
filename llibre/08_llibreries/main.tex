@@ -1,18 +1,25 @@
 \chapter{Mòduls i llibreries}
 Els mòduls ens permeten empaquetar les nostres funcions i organitzar-les modularment. Quan hem vist la llibreria {\tt math} el que hem realitzat és una importació del mòdul. Quan utilitzem {\tt import} fem que sempre hagem d'incloure el nombre del mòdul abans d'accedir als mètodes o atributs. Al incloure-les és un bon patró fer-ho de la manera següent.
+
 \begin{blockcode}
 import math
 \end{blockcode}
+
 També podem crear un alias o abreviació per a treballar de manera més ràpida amb el módul utilitzant l'opció {\tt as}. Així doncs amb la següent forma accediríem als mètodes amb {\tt mt.} 
+
 \begin{blockcode}
 import math as mt
 mt.sin(2)
 \end{blockcode}
+
 És millor utilitzar {\tt import} que {\tt from modul import} degut a que la segona manera ens importarà funcions que quan tinguem projectes grans no sabrem d'on provenen i de vegades podem tenir col·lisions de noms, que és quan dues funcions o variables tenen el mateix nom i una sobreescriu l'altre.
+
 \begin{blockcode}
 from math import *
 \end{blockcode}
+
 Com hem vist amb el mòdul {\tt math} nosaltres podem importar el mòdul i després accedir a les funcions membre i als atributs mitjançant el punt '.'. Nosaltres també podem crear el nostre mòdul de manera senzilla. Podem desar en un arxiu un conjunt de funcions i una crida a aquestes per a que s'executin. Guardem les següents funcions dins d'un fitxer anomenat {\tt funcions.py}.
+
 \begin{blockcode}
 def quadrat(x):
     return x**2
@@ -32,21 +39,29 @@ NumPy és una llibreria de Python per a treballar amb arrays multidimensionals i
 >>> import numpy as np 
 >>> from numpy import * 
 \end{blockcode}
-Per a la sessió assumirem que importem el mòdul com {\tt np} que degut al seu us intensiu és més breu i més còmode d'usar
+Per a la sessió assumirem que importem el mòdul com {\tt np} que degut al seu us intensiu és més breu i més còmode d'usar.
+
 \subsection{Declaració d'arrays}
 Amb NumPy declarem de la següent forma un array:
+
 \begin{tip}[caption=Iicialització d'array amb NumPy]
 >>> arr = np.array([[1,2],[3,4]])
 >>> arr
 array([[1, 2],
        [3, 4]])
 \end{tip}
+
+
 Per defecte el tipus de les dades serà detectat automàticament per Numpy. Podem comprobar el tipus de dades emprant l'atribut membre {\tt dtype}.
+
+
 \begin{blockcode}
 >>> arr.dtype
 dtype('int64')
 \end{blockcode}
+
 Els tipus de dades estan homogeneïtzats. Així doncs si declarem totes les variables com a enters i una d'elles com a real, llavors tots els nombres seran reals.
+
 \begin{blockcode}
 >>> arr = np.array([[1,2],[3,4.3]])
 >>> arr.dtype
@@ -92,6 +107,7 @@ A continuació llistem els diversos tipus de dades que podem utilitzar a NumPy. 
 \item uint64
 \end{itemize}
 La funció {\tt zeros()} ens permet inicialitzar una matriu. També li podem especificar el tipus de dades amb el que volem treballar.
+
 \begin{tip}[caption=Inicialització amb funcio zeros()]
 >>> z = np.zeros((2,2), dtype=int)
 >>> z
@@ -108,7 +124,10 @@ array([[ 0.+0.j,  0.+0.j],
 array([[ 0.,  0.],
        [ 0.,  0.]])
 \end{tip}
+
+
 També tenim la funció anàloga {\tt ones}.
+
 \begin{tip}[caption=Inicialització amb funcio ones()]
 >>> o = np.ones((3,3), np.float128)
 >>> o
@@ -116,7 +135,11 @@ array([[ 1.,  1.,  1.],
        [ 1.,  1.,  1.],
        [ 1.,  1.,  1.]])
 \end{tip}
+
+
 També es pot donar el cas en que tenim una matriu M i volem crear una matriu amb les mateixes dimensions que M i inicialitzar-la amb zeros o uns. Per això tenim les funcions {\tt ones\_like} i {\tt zeros\_like}, que ens copien les dimensions d'una matriu donada.
+
+
 \begin{tip}[caption=Zeros like i ones like]
 >>> m = np.array([[1,2],[3,4],[5,6]])
 >>> m
@@ -134,7 +157,10 @@ array([[1, 1],
        [1, 1],
        [1, 1]])
 \end{tip}
+
 Per a crear llistes tal i com fins ara fèiem emprant la funció {\tt range} podem utilitzar la funció  de NumPy {\tt arange}
+
+
 \begin{blockcode}
 >>> np.arange(20,-20,-2)
 array([ 20,  18,  16,  14,  12,  10,   8,   6,   4,   2,   
@@ -153,12 +179,15 @@ array([-3.000+4.j , -2.375+4.375j, -1.750+4.75j, -1.125+5.125j,
         2.000+7.j   ])
 \end{blockcode}
 Podem crear una llista d'elements emprant la funció {\tt linspace} i després convertir-la en una matriu emprant la funció {\tt reshape}. Aquesta funció també redimensiona amb altres matrius.
+
 \begin{tip}[caption=Combinació de linspace() i reshape()]
 >>> arr = np.linspace(-2,2,6)
 >>> arr.reshape((2,3))
 array([[-2. , -1.2, -0.4],
        [ 0.4,  1.2,  2. ]])
 \end{tip}
+
+
 Si volem construir una matriu identitat cridem la funció la funció {\tt identity}. Així doncs, per a crear la següent matriu
 \[ \left( \begin{array}{ccc}
 1 & 0 & 0 \\
@@ -202,6 +231,8 @@ array([[ 0.,  0.,  0.],
        [ 0.,  0.,  0.]])
 \end{blockcode}
 Per evitar-ho el que fem és us de la funció {\tt copy}
+
+
 \begin{tip}[caption=Còpia per valor mitjançant la funció copy()]
 >>> x = np.zeros((3,3))
 >>> x
@@ -219,6 +250,8 @@ array([[ 0.,  0.,  0.],
        [ 0., -1.,  0.],
        [ 0.,  0.,  0.]])
 \end{tip}
+
+
 Podem comprovar si un element es troba a dins d'una llista mitjançant la funció {\tt in}
 \begin{blockcode}
 >>> 4 in a
@@ -294,10 +327,14 @@ import matplotlib.pyplot as plt
 Per a tots els exemples que mostrarem assumirem que el mòdul NumPy i matplotlib estan importats com {\tt np} i {\tt plt}
 \subsection{Aproximació a Matplotlib}
 Per fer a generar els gràfics sempre haurem de cridar a una funció específica per a cada gràfic. El gràfic de línies s'utilitza mitjançant la funció {\tt plot()} com es mostra a l'exemple 01. La funció {\tt show} s'encarrega d'obrir una nova finestra que 
+
+
 \begin{tip}[caption=Plot sencill]
 >>> plt.plot([1,2,3,4,5])
 >>> plt.show()
 \end{tip}
+
+
 \begin{figure}[!h]
     \begin{centering}
     \includegraphics[width=0.35\textwidth]{img/ex01.png}
@@ -305,12 +342,17 @@ Per fer a generar els gràfics sempre haurem de cridar a una funció específica
     \label{fig:figex01}
     \end{centering}
 \end{figure}
+
+
 No només podem utilitzar les llistes pròpies de Python, sinó que podem utilitzar funcions i arrays de Numpy per a mostrar-les tal i com es mostra a l'exemple 02.
+
 \begin{tip}[caption=Sinusoidal amb matplotlib]
 np.arange(0, 2*np.pi, 0.1);
 y = np.sin(x)
 plt.plot(x, y)
 \end{tip}
+
+
 \begin{figure}[!h]
     \begin{centering}
     \includegraphics[width=0.35\textwidth]{img/ex02.png}
@@ -332,70 +374,89 @@ plt.isinteractive()
 \end{blockcode}
 \subsection{Gràfics}
 Abans hem vist la funció {\tt plot} per realitzar gràfiques simples. A continuació veurem diverses funcions de matplotlib per a mostrar diferents menes de gràfics.
-\begin{figure}[!h]
-    \begin{centering}
-    \includegraphics[width=0.35\textwidth]{img/ex03.png}
-    \caption{exemple scatter}
-    \label{fig:figex03}
-    \end{centering}
-\end{figure}
+
 \subsection{Scatter}
 En el cas de plot nosaltres tenim una distribució que va avançant seqüencialment. Quan volem repartir punts aleatòriament per l'espai utilitzarem la funció {\tt scatter}. La funció rep dos paràmetres, l'eix de les x i de les Y
+
 \begin{tip}[caption=Funcio scatter]
 plt.scatter([2.5,2,3],[3,2,1])
 plt.show()
 \end{tip}
+
+\begin{figure}[!h]
+    \begin{centering}
+    \includegraphics[width=0.3\textwidth]{img/ex03.png}
+    \caption{exemple scatter}
+    \label{fig:figex03}
+    \end{centering}
+\end{figure}
+
 \subsection{Gràfics de barres}
 Pels gràfics de barres es crida a la funció {\tt bar} i es passen els dos eixos (X,Y) com a paràmetre de la funció. També existeix una altre funció per barres que es específica per a divisions de colors o reparticions de valors tal i com histogrames que s'anomena {\tt hist}.
+
 \begin{tip}[caption=Gràfic de barres]
 plt.bar([1,2,3],[4,9,2])
 \end{tip}
+
+
 \begin{figure}[!h]
     \begin{centering}
-    \includegraphics[width=0.35\textwidth]{img/ex04.png}
-    \caption{exemple gràfic de barres}
+    \includegraphics[width=0.3\textwidth]{img/ex04.png}
+    \caption{gràfic de barres}
     \label{fig:figex04}
     \end{centering}
 \end{figure}
 \subsection{Gràfics pastís}
 Aquest gràfic ens sumarà tots els valors i cada part agafarà la part de l'angle que li correspongui.
+
+
 \begin{tip}[caption=Gràfic pastís]
 plt.pie([1,2,3,4,5,6])
 \end{tip}
+
+
 \begin{figure}[!h]
     \begin{centering}
     \includegraphics[width=0.35\textwidth]{img/ex05.png}
-    \caption{exemple gràfic pastís}
+    \caption{gràfic pastís}
     \label{fig:figex05}
     \end{centering}
 \end{figure}
 \subsection{Gràfics  amb fletxes}
 Aquests gràfics són utilitzats amb sistemes d'equacions diferencials o en valors de magnituds repartits per l'espai. Representen un vector amb una direcció i una llargària. Necessitem dues matrius, una amb l'eix de les X i una altre amb l'eix de les Y de les forces. Les fletxes van des de una coordenada (0,0) que està indicada en el punt de la matriu, al punt on està especificat el valor
-\begin{tip}[caption=Gràfic fletxes]
-X, Y = np.mgrid[0:10, 0:10]
-plt.quiver(X, Y)
-\end{tip}
+
 \begin{figure}[!h]
     \begin{centering}
-    \includegraphics[width=0.35\textwidth]{img/ex06.png}
+    \includegraphics[width=0.3\textwidth]{img/ex06.png}
     \caption{exemple gràfic fletxes}
     \label{fig:figex06}
     \end{centering}
 \end{figure}
+
+\begin{tip}[caption=Gràfic fletxes]
+X, Y = np.mgrid[0:10, 0:10]
+plt.quiver(X, Y)
+\end{tip}
+
+
+
 \subsection{Guardar gràfics en arxiu}
 Matplotlib permet guardar les gràfiques que hem realitzat dins d'una imatge. Per a poder guardar-la especifiquem la ruta del fitxer i el nom de la imatge
+
 \begin{blockcode}
 plt.savefig("exemple.png")
 plt.savefig("exemple.pdf")
 \end{blockcode}
+
 \section{SciPy}
 SciPy és una llibreria de Python que implementa un conjunt de funcions matemàtiques. A diferència que NumPy integra rutines numèriques com per exemple funcions per treballar amb vectors  o manipulació d'imatges. La seva finalitat es proveir a la comunitat científica d'un ventall de funcionalitats per a processament de dades. Normalment trobarem SciPy importat de la següent manera
+
 \begin{blockcode}
 import scipy as sp
 \end{blockcode}
 SciPy està organitzada en un conjunt de subpackets:
 \begin{itemize}
-\item \emph{cluster} Clustering algorithms
+\item \emph{cluster} Algoritmes de clustering
 \item \emph{constants} Constants matemàtiques i físiques
 \item \emph{fftpack} Rutines de la tranformada ràpida de Fourier
 \item \emph{integrate} Integració i equacions diferencials ordinaries
@@ -417,44 +478,11 @@ A la pàgina \href{http://docs.scipy.org/doc/scipy/reference/tutorial/}{Document
 >>> import scipy.optimize as optimize
 >>> sp.info(optimize.fmin)
 \end{blockcode}
-\subsection{Constants}
-Al paquet {\tt scipy.constants} podrem trobar un conjunt de constants matemàtiques i físiques
-\begin{itemize}
-\item c         speed of light in vacuum
-\item $mu_0$    the magnetic constant $\mu_0$
-\item epsilon\_0        the electric constant (vacuum permittivity), $\epsilon_0$
-\item h         the Planck constant h
-\item hbar      $\hbar = h/(2\pi)$
-\item G         Newtonian constant of gravitation
-\item g         standard acceleration of gravity
-\item e         elementary charge
-\item R         molar gas constant
-\item alpha     fine-structure constant
-\item N\_A      Avogadro constant
-\item k         Boltzmann constant
-\item sigma     Stefan-Boltzmann constant $\sigma$
-\item Wien      Wien displacement law constant
-\item Rydberg   Rydberg constant
-\item m\_e      electron mass
-\item m\_p      proton mass
-\item m\_n      neutron mass
-\end{itemize}
-A la documentació trobem una llista complerta de les constants\cite{constants}.
-\begin{blockcode}
-from scipy.constants import c,Planck,pi,e
->>> c
-299792458.0
->>> Planck
-6.62606957e-34
->>> pi
-3.141592653589793
-\end{blockcode}
-Per accedir a les constants físiques farem
-\begin{blockcode}
->>> from scipy.constants import physical_constants
->>> physical_constants["atomic mass constant"]
-(1.660538921e-27, 'kg', 7.3e-35)
-\end{blockcode}
+
+
+
+
+
 \subsection{Exemple de SciPy}
 Per a veure un exemple de les moltes funcionalitats que proveu SciPy implementarem un codi utilitzant el paquest {\tt linalg} i veurem com NumPy i SciPy es combinen.
 \begin{blockcode}
@@ -481,3 +509,4 @@ array([[-4. ],
 array([[ 0.],
       [ 0.]])
 \end{blockcode}
+
