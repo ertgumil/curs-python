@@ -1,0 +1,122 @@
+\chapter{Excepcions}
+
+
+\section{Gestionar excepcions}
+
+Les excepcions són una manera de tractar casos en els quals Python considera que hi ha hagut una excepció de l'execució o interpretació. Per exemple una divisió entre 0 ens donarà una excepció de tipus {\tt ZeroDivisionError}. Python pararà l'execució del nostre programa i ens avisarà d'on ha succeit i quina mena d'error és.
+
+
+\begin{blockcode}
+>>> 2/0
+------------------------------------------------------------
+ZeroDivisionError          Traceback (most recent call last)
+/home/albert/<ipython-input-2-897f73788bb0> in <module>()
+----> 1 2/0
+
+ZeroDivisionError: integer division or modulo by zero
+\end{blockcode}
+
+A continuació es presenta una llista dels errors de Python extret de la documentació oficial de Python. En aquesta llista hi ha un ordre jeràrquic i algunes excepcions hereten de prèvies. Per exemple, dintre dels errors de sintaxis trobem l'excepció de sagnat.
+
+
+\begin{blockcode}
+BaseException
+ +-- SystemExit
+ +-- KeyboardInterrupt
+ +-- GeneratorExit
+ +-- Exception
+      +-- StopIteration
+      +-- StandardError
+      |    +-- BufferError
+      |    +-- ArithmeticError
+      |    |    +-- FloatingPointError
+      |    |    +-- OverflowError
+      |    |    +-- ZeroDivisionError
+      |    +-- AssertionError
+      |    +-- AttributeError
+      |    +-- EnvironmentError
+      |    |    +-- IOError
+      |    |    +-- OSError
+      |    |         +-- WindowsError (Windows)
+      |    |         +-- VMSError (VMS)
+      |    +-- EOFError
+      |    +-- ImportError
+      |    +-- LookupError
+      |    |    +-- IndexError
+      |    |    +-- KeyError
+      |    +-- MemoryError
+      |    +-- NameError
+      |    |    +-- UnboundLocalError
+      |    +-- ReferenceError
+      |    +-- RuntimeError
+      |    |    +-- NotImplementedError
+      |    +-- SyntaxError
+      |    |    +-- IndentationError
+      |    |         +-- TabError
+      |    +-- SystemError
+      |    +-- TypeError
+      |    +-- ValueError
+      |         +-- UnicodeError
+      |              +-- UnicodeDecodeError
+      |              +-- UnicodeEncodeError
+      |              +-- UnicodeTranslateError
+      +-- Warning
+           +-- DeprecationWarning
+           +-- PendingDeprecationWarning
+           +-- RuntimeWarning
+           +-- SyntaxWarning
+           +-- UserWarning
+           +-- FutureWarning
+	   +-- ImportWarning
+	   +-- UnicodeWarning
+	   +-- BytesWarning
+\end{blockcode}  
+	   
+
+
+Per a capturar una excepció utilitzarem les funcionalitats {\tt try \& except}. Per exemple podem dividir tots els nombres enters en el rang $[10,-10]$ entre sí mateixos i esperar a que hi hagi una divisió entre zero. 
+
+\begin{tip}[caption=Divisió entre zero]
+for i in range(10,-10,-1):
+     try:
+         i/i
+     except ZeroDivisionError:
+         print ("Divisio entre 0")
+\end{tip}
+
+
+També podem considerar diversos tipus d'error:
+
+\begin{tip}[caption=Diversos errors]
+for i in range(10,-10,-1):
+     try:
+         i/i
+     except TypeError:
+         print ("Type Error")
+     except ValueError:
+         print ("Value Error")
+     except:
+         print ("Un altre error")
+\end{tip}
+
+
+
+
+\section{Llençar excepcions}
+
+Tot i que en els exemples previs hem mostrat l'error mitjançant la funció {\tt print()}, la manera correcta és llençar una excepció, a no ser que ens interessi que l'excepció no aturi el nostre codi. Mitjançant la comanda {\tt raise} nosaltres podem llençar les nostres pròpies excepcions. Podem especificar el tipus d'error i quin és el missatge que volem que es mostri al usuari del nostre programa.
+
+
+\begin{tip}[caption=Llençar errors amb raise]
+for i in range(10,-10,-1):
+     if(i==0):
+     	raise ValueError("No s'accepta el valor 0")
+     i/i
+\end{tip}
+
+
+\subsubsection*{Exercici \Roman{exercici}} \stepcounter{exercici}
+
+Buscar tots els casos pels que és cert l'últim teorema de fermat per a n < 10 i valors de z < 10000.
+
+$x^n + y^n = z^n$

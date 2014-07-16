@@ -1,0 +1,85 @@
+\documentclass[12pt]{book}
+\usepackage[utf8]{inputenc}	% Codificació UTF-8 amb accents
+\usepackage[english]{babel}	% Definir idioma al paquet Babel
+\usepackage{hyperref}	    % Enllaços
+\usepackage{graphicx}	    % Imatges
+\usepackage{verbatim,color}	% Afegir codi
+\usepackage{listings}       % Llistat pel caption
+\usepackage{caption}        % Definir caption propi
+
+% Color gris pels Exemples
+\definecolor{gray}{rgb}{0.2,0.2,0.2}
+
+% Canviar els títols al català
+\addto\captionsenglish{\renewcommand{\contentsname}{Índex}}
+\addto\captionsenglish{\renewcommand{\chaptername}{Capítol}}
+\addto\captionsenglish{\renewcommand{\bibname}{Referències}}
+
+% Esborrar numeració a l'index
+\addtocontents{toc}{\protect\thispagestyle{empty}} 
+
+% Definir un contador per enumerar els exercicis
+\newcounter{exercici}
+\setcounter{exercici}{1}
+
+% Definir caption pels exemples
+\makeatletter
+\newcounter{tip}
+\lstnewenvironment{tip}[1][]%
+    {%
+    \noindent\minipage{\linewidth}%
+            \def\lstlistingname{Exemple}%
+            \def\lstlistingautorefname{Exemple}%
+            \let\c@lstlisting=\c@tip
+            \let\thelstlisting=\thetip
+            \lstset{#1,keywordstyle=\color{black},numberbychapter=false,basicstyle=\normalsize\ttfamily\color{gray}\bfseries, backgroundcolor=\color{white},frame=none,captionpos=bc}%
+            \captionsetup{options=tip}
+    }
+ {\endminipage}
+\makeatother
+
+
+% Portada
+\title{Introducció a Python}
+\author{Albert Gutiérrez Millà \\ (albertgumi@gmail.com)}
+\date{Juliol 2014}
+
+
+\newenvironment{blockcode}
+  {\leavevmode\color{blue}\verbatim}
+  {\endverbatim}
+
+
+
+\begin{document}
+
+
+\pagestyle{empty}   % Esborrar numeració de pàgines
+
+\maketitle
+
+
+\include{00_portada/llicencia}
+\include{00_portada/consideracions}
+
+\tableofcontents
+ 
+\include{01_introduccio/main}
+\include{02_programacio/main}
+\include{03_variables/main}
+\include{04_controlflux/main}
+\include{05_funcions/main}
+\include{06_ES/main}
+\include{07_excepcions/main}
+\include{08_llibreries/main}
+\include{09_notebook/main}
+\include{10_pycharm/main}
+\include{11_sage/main}
+ 
+
+
+
+
+
+
+\end{document}

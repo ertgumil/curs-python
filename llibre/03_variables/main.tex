@@ -1,0 +1,489 @@
+
+\chapter{Variables i estructures de dades}
+
+Una variable és un element mutable que pot emmagatzemar valors. Per exemple en la funció $f(x) = sin(x)$ la variable $x$ podrà tindre valors diferents depenent de quin li donem i a més pertanyerà a un conjunt o tipus de dada. En el cas de la programació en Python també. 
+
+\section{Tipus de variables}
+
+Python emmagatzemarà i interpretarà els valors de les variables depenent del tipus de dades. A continuació mostrem alguns tipus de dades:
+
+
+
+\begin{itemize}
+	\item \emph{Integer}: nombres enters
+	
+	x = 15	
+	
+	\item \emph{Float}: nombres reals
+
+	x = -2.5
+
+	\item \emph{Complex}: nombres complexes
+	
+	x = -3 + 10.2j
+	
+	\item \emph{String}: llistes de caràcters
+	
+	x = "python" 
+	
+	\item \emph{Booleà}: lògics
+	
+	x = True
+\end{itemize}
+
+
+\section{Assignació automàtica de tipus}
+
+
+Python és dèbilment tipat. Això significarà que podem assignar diversos tipus de dades a una mateixa variable. A continuació fem que una mateixa variable primer sigui un enter, després un nombre real i per últim una cadena de caràcters.
+
+
+\begin{tip}[caption=Variables débilment tipades]
+>>> x = 1
+>>> x = 2.0
+>>> x = "python"
+>>> print(x)
+python
+\end{tip}
+
+
+
+També podrem realitzar operacions directament entre tipus diferents mentre aquests siguin compatibles. Per exemple realitzem una operació entre un enter i un nombre real.
+
+\begin{tip}[caption=Conversió implícita de dades]
+>>> x = 1
+>>> y = 2.0
+>>> x/y
+0.5
+\end{tip}
+
+
+Al igual que podem comprovar les propietats d'una funció amb l'operador {\tt } també podem consultar les variables.
+
+\begin{blockcode}
+>>> x = 3.3
+>>> x?
+Type:       float
+String Form:3.3
+Docstring:
+float(x) -> floating point number
+
+Convert a string or number to a floating point number, if 
+possible.
+\end{blockcode}	
+
+
+Al ser un llenguatge dèbilment tipat, les conversions implícites de tipus són transparent per nosaltres. Per això ens pot interessar saber amb quin tipus de dada estem treballant. La funció {\tt type()} ens permet consultar el tipus.
+
+
+\begin{tip}[caption=La funció \emph{type}]
+>>> x = 1
+>>> type(x)
+<type 'int'>
+>>> y = 2.0
+>>> type(y)
+<type 'float'>
+>>> z = x/y
+>>> type(z)
+<type 'float'>
+>>> print(z)
+0.5
+>>> a = (2+3j) * (3+5j)
+>>> type(a)
+<type 'complex'>
+\end{tip}
+
+Combinada amb la funció {\tt is} podrem comprovar amb quina mena de dades estem treballant donat que podem voler evitar treballar amb tipus concrets de dades.
+
+\begin{tip}[caption=Comprobació lógica de tipus]
+>>> x = 2
+>>> type(x) is int
+True
+>>> x = 3.3
+>>> type(x) is float
+True
+>>> type(x) is int
+False
+\end{tip}
+
+
+\section{Variables i operacions}
+
+Els operadors de Python són semblants als que trobem en altres llenguatges. Com a operadors especials podem trobar la divisió entera i la potència. A continuació es llisten els operadors numèrics.
+
+\begin{itemize}
+	\item Suma: $+$
+	\item Resta:  $-$
+	\item Multiplicació : $*$
+	\item Divisió: $/$
+	\item Divisió entera: $//$
+	\item Reste del mòdul: $\%$
+	\item Potència: $**$
+\end{itemize}
+
+Podem utilitzar el intèrpret de Python com si fos una calculadora. Fins i tot a Python podem definir els nostres propis operadors per a que realitzin les operacions que vulguem amb els nostres objectes.
+
+
+\begin{tip}[caption=Operacions Python]
+>>> 2+3
+5
+>>> 2-3
+-1
+>>> 3*2
+6
+>>> 9/2
+4.5
+>>> 9//2
+4
+>>> 14%5
+2
+>>> 9**2
+81
+\end{tip}
+
+
+Al igual que en la calculadora la sintaxis de Python ens dona una jerarquia de les operacions.
+
+
+\begin{blockcode}
+>>> (2+3)*5
+25
+>>> 2+3*5
+17
+\end{blockcode}
+
+El tipus sencer no té limit de precisió a l'execució. Donat que Python realitza conversió implícita de dades ens trobarem que algunes operacions que impliquen canvi de tipus ens donaran error al executar.
+
+
+\begin{blockcode}
+
+>>> 2**1024
+179769313486231590772930519078902473361797697894230657
+273430081157732675805500963132708477322407536021120113
+879871393357658789768814416622492847430639474124377767
+893424865485276302219601246094119453082952085005768838
+150682342462881473913110540827237163350510684586298239
+947245938479716304835356329624224137216
+\end{blockcode}
+
+
+Podem utilitzar el guió baix {\tt \_} per a referir-nos a Ans
+
+\begin{blockcode}
+>>> pi = 3.141592653589793
+>>> r = 4
+>>> A = pi * r**2
+>>> _
+50.26548245743669
+\end{blockcode}  
+
+
+
+\subsection{Llibreria \emph{math}}
+
+La llibreria {\tt math} ens dona un conjunt de funcions matemàtiques i constants a per poder treballar. A continuació es llisten les que implementa la llibreria.
+
+\begin{blockcode}
+acos       degrees    fsum       log2
+acosh      e          gamma      modf
+asin       erf        hypot      pi
+asinh      erfc       isfinite   pow
+atan       exp        isinf      radians
+atan2      expm1      isnan      sin
+atanh      fabs       ldexp      sinh
+ceil       factorial  lgamma     sqrt
+copysign   floor      log        tan
+cos        fmod       log10      tanh
+cosh       frexp      log1p      trunc
+\end{blockcode}
+
+Podem importar funcions concretes utilitzant la funció {\tt from} i les podrem utilitzar directament en el nostre entorn.
+
+\begin{blockcode}
+>>> from math import sqrt, pow, sin
+>>> sqrt(sin(pow(2,3)))
+0.9946648916209829
+\end{blockcode}
+
+O be importar totes les funcions utilitzant el caràcter {\tt *}.
+
+\begin{blockcode}
+>>> from math import *
+sin(), cos(), 
+\end{blockcode}
+
+
+
+
+\subsubsection*{Exercici \Roman{exercici}} \stepcounter{exercici}
+
+Tenint la següent fórmula d'un tir parabòlic: quin valor de $x$ prendrà el projectil amb una velocitat de 10m/s i un angle de 1 radian?
+
+\[
+x = v_0 cos(\alpha) \frac{2 v_0 sen(\alpha)}{g}
+\]
+
+
+
+\subsubsection*{Exercici \Roman{exercici}} \stepcounter{exercici}
+
+Escriu un programa en Python en un fitxer que s'encarregui de resoldre de forma genèrica el càlcul del problema del pla inclinat. Les variables han d'estar declarades al principi i comentades i al final de l'execució del programa ha de mostrar els resultats imprimint-los per pantalla.
+
+
+
+
+\section{Operacions amb cadenes de caràcters}
+
+En el cas de les cadenes de caràcters podem emprar operadors per a formatar la sortida del nostre text. Per exemple la concatenació empra l'operador {\tt +} o la coma.
+
+
+\begin{blockcode}
+>>> var1 = "Hello"
+>>> var2 = "World"
+>>> print(var1 + " " + var2)
+Hello World
+>>> print(var1,var2)
+Hello World
+>>> print(var1 * 3)
+HelloHelloHello
+\end{blockcode}	
+
+
+Si intentem realitzar la concatenació amb l'operador {\tt +} i diversos tipus de dades que no son cadenes de caràcters rebrem una excepció. Per això emprarem la funció {\tt str()} que converteix tipus de dades a cadena de caràcters..
+
+\begin{blockcode}
+>>> print("Resultat: " + str(3))
+Resultat: 3
+\end{blockcode}	
+
+
+
+
+\section{Estructures de dades}
+
+Podem estructurar conjunts de dades en una única variable. Per això creem les estructures de dades. Depenent de la forma d'organització i la interacció serà una o una altre tal i com llistes, conjunts, tuples, etc. Nosaltres podem crear els nostres tipus d'estructures en Python, però el llenguatge ja implementa les bàsiques.
+
+
+
+
+\subsection{Llistes}
+
+Les llistes són conjunts de dades ordenats unidimensioalment com per exemple una llista d'edats d'una població. Les llistes permeten emmagatzemar diversos tipus de dades. Per a la inicialització introduirem valors entre claudàtors {\tt [ ]}. Si volem que sigui una llista buida no inclourem cap element.
+
+
+\begin{blockcode}
+>>> llista_buida = []
+>>> llista_edats = [10,5,6,23,65,23,2,21,41]
+>>> llista_elements = [2, 4+3j, 'a', "bcd"]
+\end{blockcode}
+
+
+
+Per accedir a la llista emprem index. En gairebé tots els llenguatges de programació el primer element de la llista és l'element 0. Així doncs l'element 2 serà el tercer de la llista.
+
+\begin{blockcode}
+>>> llista = [1,3,4,2]
+>>> llista[2]
+4
+\end{blockcode}
+
+Quan volem obtenir una subllista podem emprar l'operador {\tt :} per indicar intervals d'índex. El primer índex ens indicarà el primer índex a retornar i el segon índex és el l'últim índex que no inclourà a la subllista. Si no incloem index al principi o al final ens retornarà des del primer element o fins a l'últim, respectivament. 
+
+
+\begin{blockcode}
+>>> llista[1:3]
+[3,4]
+>>> llista[:3]
+[1, 3, 4]
+>>> llista[1:]
+[3, 4, 2]
+\end{blockcode}
+
+Podem accedir des de l'últim element emprant nombres negatius. L'element {\tt -1} seria l'últim, {\tt -2} el penúltim, i així.
+
+
+\begin{blockcode}
+>>> llista[-1]
+2
+>>> llista[-3:-1]
+[3, 4]
+>>> llista[-4]
+1
+\end{blockcode}
+
+
+Una paraula és una cadena de caràcters. Per tant podrem accedir de la mateixa manera, tot i que no tindrem les mateixes funcions membre.
+
+
+\begin{blockcode}
+>>> c = "python"
+>>> c[2:]
+'thon'
+>>> c[:-3]
+'pyt'
+>>> c[4]
+'o'
+\end{blockcode}
+
+Quan copiem una llista ho fem per referència. Això significa que no realitzarem una còpia exacta valor per valor a la nova variable, si no que tindrem una referència a la primera llista
+
+\begin{blockcode}
+>>> l = [-1,3,4,-9]
+>>> m = l
+>>> m[0] = 4
+>>> l 
+[3,3,4,-9]
+\end{blockcode}
+
+Com veiem estem modificant la primera llista {\tt l} i no la llista {\tt m}. Per a copiar el valor de la llista retornarem tota la llista de valors i la guardarem accedint a tots els elements amb {\tt [:]}.
+
+\begin{blockcode}
+>>> l = [-1,3,4,-9]
+>>> m = l[:]
+>>> m[0] = 4
+>>> m
+[4,3,4,-9]
+>>> l
+[-1,3,4,-9]
+\end{blockcode}
+
+
+Hi han un conjunt d'operacions que podem realitzar amb les llistes. Per a veure quines són podem prémer la tecla {\tt tab} després d'haver escrit la variable més un punt {\tt llista.} a la terminal.
+
+\begin{itemize}
+\item {\tt append()}: Afegir elements
+\item {\tt extend(l)}: Afegir elements d'una altra llista
+\item {\tt insert()}: Inserir elements en una posició concreta
+\item {\tt remove()}: Eliminar el primer element de la llista que coincideixi amb un valor donat
+\item {\tt pop()}: Esborrar i tornar l'últim element
+\item {\tt index()}: Tornar l'index d'un element concret
+\item {\tt count()}: Trobar el nombre de vegades que troba un element
+\item {\tt sort()}: Ordenar la llista. Tenir en compte els tipus de variables
+\item {\tt reverse()}: Donar la volta a la llista.
+\end{itemize}
+
+
+\begin{tip}[caption=Operacions amb llistes]
+>>> l = [10,5,6,23,65,23,2,21,41]
+>>> l.append(10)
+>>> l
+[10, 5, 6, 23, 65, 23, 2, 21, 41, 10]
+>>> l.extend(l[:3])
+>>> l
+[10, 5, 6, 23, 65, 23, 2, 21, 41, 10, 10, 5, 6]
+>>> l.insert(0,2)
+>>> l
+[2, 10, 5, 6, 23, 65, 23, 2, 21, 41, 10, 10, 5, 6]
+>>> l.remove(23)
+>>> l
+[2, 10, 5, 6, 65, 23, 2, 21, 41, 10, 10, 5, 6]
+>>> l.pop()
+6
+>>> l.index(65)
+4
+>>> l.count(10)
+3
+>>> l.sort()
+>>> l
+[2, 2, 5, 5, 6, 10, 10, 10, 21, 23, 41, 65]
+>>> l.reverse()
+>>> l
+[65, 41, 23, 21, 10, 10, 10, 6, 5, 5, 2, 2]
+\end{tip}
+
+Dintre d'una llista podem crear a la seva vegada altres llistes i donar lloc a estructures com matrius.
+
+\begin{blockcode}
+>>> llista = [[1, 2], [3, 4]]
+\end{blockcode}
+
+
+A la seva vegada nosaltres podem concatenar llistes diferents
+
+\begin{blockcode}
+>>> l = [[1,2],[3,4]]
+>>> m = [[4,3],[2,1]]
+>>> l+m
+[[1, 2], [3, 4], [4, 3], [2, 1]]
+\end{blockcode}
+
+En llistes així com en la resta d'estructures de dades tenim la funció {\tt len()} que ens diu quants elements hi ha a l'estructura de dades.
+
+\begin{blockcode}
+>>> l = [[1,2,3],[4,5,6]]
+>>> len(l)
+2
+>>> len(l[0])
+3
+\end{blockcode}
+
+\subsection{Tuples}
+
+Les tuples són estructures de dades immutables, a diferència de les llistes. Per tant els valors que hi guardem seran constants. Hi podem accedir igual que amb les llistes introduint un índex, i sempre inicialitzarem els valors entre parèntesis {\tt ( )} i separats per comes. Només tenen dos funcions: {\tt count} per contar el número de coincidències d'un element i {\tt index} per retornar l'index d'un element.
+
+\begin{tip}[caption=Operacions amb tuples]
+>>> t = (1,2,3,'a')
+>>> t.count('a')
+1
+>>> t.index('a')
+3
+\end{tip}
+
+
+
+\subsection{Diccionaris}
+
+Un diccionari és una estructura de dades que guarda parelles de dades clau-valor. La clau sempre es declara primer i el valor segon després de dos punts. Les funcions {\tt keys} i {\tt values} ens retornen les claus i els valors.
+
+\begin{tip}[caption=Operacions amb dicionaris]
+>>> edat = {'salvador': 23,'maria': 41,'helena': 39}
+>>> edat['helena']
+39
+>>> edat.keys()
+dict_keys(['helena', 'salvador', 'maria'])
+>>> edat.values()
+dict_values([39, 23, 41])
+\end{tip}
+
+
+Si volem copiar els valors d'una llista a una altre haurem de fer servir la funció {\tt copy}. Si no només tindrem una referència a la primera llista igual que ens passava amb les llistes.
+
+\begin{blockcode}
+>>> edat2 = edat.copy()
+>>> edat2['salvador'] = 24
+>>> edat
+{'helena': 39, 'maria': 41, 'salvador': 23}
+>>> edat2
+{'helena': 39, 'maria': 41, 'salvador': 24}
+\end{blockcode}  
+
+
+\begin{blockcode}
+>>> b = edat
+>>> b['helena'] = 42
+>>> edat
+{'helena': 42, 'maria': 41, 'salvador': 23}
+\end{blockcode}
+
+Per afegir un altre element només hem de declar una nova clau i valor amb la variable ja existent.
+
+\begin{blockcode}
+>>> edat['lara'] = 53
+>>> edat
+{'helena': 42, 'lara': 53, 'maria': 41, 'salvador': 23}
+\end{blockcode}
+
+\subsubsection*{Exercici \Roman{exercici}} \stepcounter{exercici}
+
+Resol el problema de les 8 reines per a un nombre genèric de reines. Utilitza {\tt try} i {\tt except} per a controlar possibles excepcions, declara una funció per imprimir el resultat i guardar els resultats en un fitxer.
+
+
+
+
+\subsubsection*{Exercici \Roman{exercici}} \stepcounter{exercici}
+
+
+Calcular la desviació estàndard, la mitja i la mitjana d'una llista de 5 elements i mostrar-la per pantalla.
+
+
+

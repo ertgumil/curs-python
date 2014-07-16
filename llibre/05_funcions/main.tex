@@ -1,0 +1,234 @@
+\chapter{Funcions}
+
+
+Una funció realitza un conjunt de tasques i pot tornar o no un valor. Si, per exemple tenim la funció $f(x) = sin(x)$, llavors tenim que el nom de la funció és $f$, el paràmetre és $x$ i la funcionalitat i sortida del sistema és el resultat de l'operació $sin(x)$. Per a declarar una funció comencem amb la paraula clau {\tt def} i seguit pel nom de la funció. Els valors calculats es retornen mitjançant la paraula clau {\tt return}. La sortida del sistema retorna per {\tt return} serà només una variable. Si volem tornar diversos valors haurem d'utilitzar llistes o altres estructures. Per tant la definició de la funció que em vist abans seria, en Python.
+
+
+\begin{tip}[caption=Definició funció f()]
+def f(x):
+    return sin(x)
+\end{tip}
+
+
+\section{Funcions}
+
+Una funció realitza un conjunt de tasques i pot o no retornar un valor. En el cas que no retorni cap valor, per defecte tindrem el valor $None$. En el cas dels paràmetres podem definir tants com vulguem o cap. En el cas que no passem cap argument a la funció deixarem els parèntesis en blanc {\tt def funcio()}
+
+\begin{blockcode}
+def f():
+    print("Dintre")
+>>> r = f()
+>>> print(r)
+\end{blockcode}
+
+
+
+Podem declarar variables dins de les funcions que només tindran aquest àmbit
+
+
+\begin{blockcode}
+def funcio():
+     var = 10
+     print(var)
+>>> funcio()
+10
+>>> var
+----------------------------------------------------------
+NameError          Traceback (most recent call last)
+/home/albert/<ipython-input-88-5d73f6e1684c> in <module>()
+----> 1 var
+
+NameError: name 'var' is not defined
+\end{blockcode}
+
+
+
+La sortida del sistema retorna per {\tt return} serà només una variable. Si volem tornar diversos valors haurem d'utilitzar llistes o altres estructures.
+
+
+\begin{tip}[caption=Retornar llista de valors]
+def fact(x):
+    llista = []
+    for i in range(1,x+1):
+        llista.append(math.factorial(i))
+    return llista
+>>> l = fact(4)
+>>> l
+[1, 2, 6, 24]
+\end{tip}
+
+
+
+Una funció no ha de tindre obligatòriament la funció {\tt return}, tot i que sempre tornarà un valor. Si no li especifiquem cap valor ens retornarà {\tt None}.
+
+\begin{blockcode}
+def imprimeix_matriu (matriu):
+    for i in range(0,len(matriu)):
+        for j in range(0,len(matriu[0])):
+            print(matriu[i][j])
+>>> r = imprimeix_matriu([[1,2],[3,4]])
+1
+2
+3
+4
+>>> print(r)
+None
+\end{blockcode}
+
+Podem tindre diverses instàncies de {\tt return} i depenen del flux del programa retornar un valor o un altre.
+
+\begin{tip}[caption=Diversos return]
+def bool_a_binari(logic):
+    if logic == True:
+        return 1
+    else:
+        return 0
+>>> curs.bool_a_binari(True)
+1
+\end{tip}
+
+
+Podem especificar valors per defecte de la funció, i donar valors concrets al cridar-la. Per defecte anirà en ordre la crida, però podem especificar arguments en la crida.
+
+\begin{tip}[caption=Valors per defecte i ordre dels paràmetres]
+def potencia (x = 2, y = 3):
+    return x**y
+>>> potencia(2)
+8
+>>> potencia(y=5, x = -4)
+-1024
+\end{tip}
+
+
+\subsubsection*{Exercici \Roman{exercici}} \stepcounter{exercici}
+
+Calcular els primers 1000 nombres prims emprant el sedàs d'Eratòstenes.
+
+
+\subsubsection*{Exercici \Roman{exercici}} \stepcounter{exercici}
+
+\begin{blockcode}
+def mitjana(llista):
+    if llista is not list:
+        return None
+    else:
+        ret = 0
+        for i in llista:
+            ret = ret + i
+        retun ret/len(llista)
+\end{blockcode}
+
+
+
+\subsubsection*{Exercici \Roman{exercici}} \stepcounter{exercici}
+
+
+Definir la següent funció:
+
+\[
+\sum_{i=0}^{n}x^{i}=1+x+x^{2}+x^{3}+\ldots + x^{n}
+\]
+
+
+
+\subsubsection{Recursivitat}
+
+En Python podem definir funcions recursives. Una funció recursiva és aquella que es crida a si mateixa. Els beneficis de la recursivitat és l'expressivitat, tot i que computacionalment no sempre ens interessarà.
+
+
+\begin{tip}[caption=Càlcul recursiu d'un nombre factorial]
+def factorial(n):
+	if(n <= 0):
+		return 1
+	else:
+		return n*fact(n-1)
+\end{tip}
+
+
+		
+		
+		
+
+\section{Funcions lambda, map i filter}
+
+
+\subsection{Lambda}
+
+Les funcions lambda són funcions anònimes que utilitzen un constructor anomenat {\tt lambda}. Tenen un sintaxi pròpia i no les podem cridar ni definir de la mateixa forma que les funcions corrents de Python, sinó que té la seva pròpia sintaxis i semàntica.
+
+
+\begin{tip}[caption=Funcions anònimes]
+f = lambda x: math.sin(x)
+print(f(3))
+g = lambda x,y: -1 * x**y
+print(g(1,1))
+\end{tip}
+
+
+
+
+
+\subsection{Map}
+
+
+La funció {\tt map()} ens és útil quan volem aplicar la mateixa operació a una llista de valors. Per exemple quan volem arrodonir una llista de números. Li passem com a paràmetre el nom de la funció i la llista de valors. Per això, els paràmetres de la funció seran:
+
+
+\begin{tip}[caption=Calcular el cub d'una llista]
+>>> ll = list(range(1,10))
+>>> def cub(x): return x**3
+>>> list(map(cub,ll))
+[1, 8, 27, 64, 125, 216, 343, 512, 729]
+\end{tip}
+
+
+
+\subsection{Filter}
+
+La funció {\tt filter()} descarta els valors d'una llista quedant-se només amb aquells valors que la funció retorna. Això ens serà útil quan volem descartar valors que no ens interessen d'una llista. El que determinarà si es retorna o no el valor és si la funció d'avaluació retorna cert o fals.
+
+
+\begin{tip}[caption=Retornarn només valors negatius]
+def fil(x):
+     if(x < 0):
+         return x    
+>>> v = list(range(-10,10))
+>>> list(filter(fil,v))
+[-10, -9, -8, -7, -6, -5, -4, -3, -2, -1]
+\end{tip}
+
+Podem combinar les funcions anònimes i les funcions {\tt filter()} i {\tt lambda()}. Si en comptes de passar com a paràmetre el nom de la funció declarem la funció lambda, llavors tindrem una funció més expressiva.
+
+\begin{tip}[caption=Retornarn només valors negatius]
+>>> v = list(range(-10,10))
+>>> list(filter(lambda x: x < 0,v))
+[-10, -9, -8, -7, -6, -5, -4, -3, -2, -1]
+\end{tip}
+
+
+
+\subsubsection*{Exercici \Roman{exercici}} \stepcounter{exercici}
+
+Realitzar l'exercici anterior de càlcul de nombres prims emprant la funció {\tt filter()}.
+
+
+\subsubsection*{Exercici \Roman{exercici}} \stepcounter{exercici}
+
+
+Definir la funció següent:
+
+\[
+\sum_{i=0}^{n}x^{i}=1+x+x^{2}+x^{3}+\ldots + x^{n} \left( \left| x \right| <1 \right)
+\]
+
+
+
+\subsubsection*{Exercici \Roman{exercici}} \stepcounter{exercici}
+
+Defineix l'algoritme del triangle de Tartaglia i executa'l per a 100 nivells.
+
+
+
+\subsubsection*{Exercici \Roman{exercici}} \stepcounter{exercici}
+
+Calcular els factors per a qualsevol nombre donat

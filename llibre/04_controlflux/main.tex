@@ -1,0 +1,188 @@
+\chapter{Control de fluxe}
+
+
+Fins ara hem vist variables i operacions, però la part més intensa en cómput i la que determina la variabilitat de la nostra execució són els bucles i les operacions condicionals. Realitzar una acció o un altra, o iterar diverses longituds ens vindrà determinat per condicions lògiques.
+
+
+
+\section{Lògica booleana}
+
+La lògica booleana ens permet crear funcions lògiques i condicions que determinaran el camí que recorre el nostre codi. A continuació llistem les taules de la veritat de diversos operadors
+
+
+
+\begin{table}[!h]
+    \begin{centering}
+    \begin{tabular}{cc|c|c|c|c|}
+    x & y & $x \wedge y$ & $x \lor y$ & $x \oplus y$ & $\neg y$\\ \hline
+    0 & 0 & 0 & 1 & 0 & 1 \\
+    0 & 1 & 0 & 1 & 1 & 0 \\
+    1 & 0 & 0 & 1 & 1 & \\
+    1 & 1 & 1 & 1 & 0 &
+    \end{tabular}
+    \caption{Taula de la veritat}
+    \label{tab:python-term}
+    \end{centering}
+\end{table}
+
+En la taula anterior el valor
+
+\begin{itemize}
+\item $\wedge$: conjunció ({\tt \&}). Tots valors han de ser certs.
+\item $x \lor y$: disjunció({\tt |}). Un dels dos valors ha de ser cert.
+\item $x \oplus y$: disjunció exclusiva(\^{}). Els elements han de ser diferents.
+\item $\neg y$: negació({\tt not}). Es nega el valor.
+\end{itemize}
+
+En Python "veritat" es representa amb la praula {\tt True} o el número {\tt 1} i "fals" amb la paraula {\tt False} o el número 0.
+
+\begin{tip}[caption=Operador lògics]
+>>> True & 1
+True
+>>> 0 and True
+False
+>>> True or False
+True
+>>> True ^ False
+True
+>>> not True
+False
+>>> not(True | False)
+False
+\end{tip}
+
+
+
+
+\section{Operacions condicionals: if, elif, else}
+
+A continuació veurem les condicions. Python utilitza tabulacions per a mostrar diversos nivells del codi. Els operadors que emprem per a l'execució de condicions són {\tt if, elif, else}. L'estructura de les condicions és la següent.
+
+\begin{blockcode}
+if expressio1:
+   accions1
+elif expressio2:
+   accions2
+elif expressio3:
+   accions3
+else:
+   resta de casos
+\end{blockcode}
+
+La primera condició sempre ha de ser un {\tt if} seguida d'una condició. Després, si volem, podem afegir més condicions amb {\tt elif} i considerar la resta de casos (sense condició) amb {\tt else}.
+
+Per exemple en el cas que vulguem saber si una persona és jove, es adulta o si encara no ha nascut respondrem diferentment depenent de les edats. Així doncs creem diverses condicions i prenem una decisió quan aquesta és certa. 
+
+\begin{tip}[caption=Rangs d'edats]
+edat=-2
+if edat < 18 and edat >= 0:
+   print("Jove")
+elif edat >= 18:
+   print("Adult")
+else:
+   print("Encara no ha nascut")
+\end{tip}
+
+
+
+
+\section{Bucle for}
+
+El bucle {\tt for} ens permet declarar un bucle. En Python s'utilitza, majoritàriament per recorrer un conjunt d'elements tal i com diccionaris, llistes, tuples o altres elements iterables.
+
+\begin{blockcode}
+for i in llista:
+    realitza acció sobre element i
+\end{blockcode}
+
+L'element {\tt i} (que pot ser anomenat d'altra manera) contindrà cada element de la llista a mesura que realitza les accions declarades dins del bucle. Quan hagi recorregut tots els elements sortirà de la iteració.
+
+\begin{tip}[caption=Bucle for]
+for i in [0, 1, 2]:
+    print("Hola " + str(i))
+print("Final")
+\end{tip}
+
+
+La funció {\tt range()} ens permet crear dinàmicament llistes sobre les quals iterar. Si li passem un paràmetre crearà una llista desde 0 fins al valor passat. Amb dos valors li donem un intérval, i amb tres un interval i un valor d'increment. El passem com a paràmetre a la funció {\tt list()} per a forçar que sigui una llista.
+
+\begin{blockcode}
+>>> list(range(3))
+[0, 1, 2]
+>>> list(range(3,9))
+[3, 4, 5, 6, 7, 8]
+>>> list(range(3,9,2))
+[3, 5, 7]
+\end{blockcode}
+
+Podem realitzar el codi anterior iterant directament sobre la llista d'elements creats.
+
+\begin{blockcode}
+for i in range(2):
+    print("Hola " + str(i))
+print("Final")
+\end{blockcode}
+
+En el cas que volguem recorrer una matriu que és una llista de llistes podem imbrincar els bucles {\tt for}. Així doncs
+
+\begin{tip}[caption=Bucles imbrincats]
+m = [[1,2,3],[4,5,6]]
+for i in m:
+	for j in i:
+		print(j)
+\end{tip}
+
+
+
+\section{Bucle while}
+
+El bucle {\tt while} és emprat en el cas de condicions d'execució i no tan per iteracions, tal i com el bucle {\tt for}. S'executarà sempre mentre que la condició del bucle sigui veritat. Quan sigui fals, s'aturarà.
+
+\begin{blockcode}
+while condicio:
+  accio
+\end{blockcode}
+
+En el següent exercici calculem els quadrats de nombres sense realitzar multiplicacions fins arribar a 5 i imprimim els valors.
+
+\begin{tip}[caption=Càlcul de quadrats amb el bucle while]
+i = 0
+c = 0
+while i < 5:
+	c = c + i + i + 1
+	i = i + 1
+	print(c)
+\end{tip}
+
+
+\section{Break continue pass}
+
+Hi han un conjunt de funcions que ens permet sortir del bucle, saltar a la següent iteració o introduïr una operació buida.
+
+En el cas de la comanda {\tt continue} volem que el programa segueixi l'execució, però que passem a la següent iteració. La comanda {\tt break} sortirà del bucle en quan s'executi. La comanda {\tt pass} no realitza cap acció. Pot ser utilitzat quan una instrucció és requerida sintàcticament però el programa no requereix cap acció, per exemple:
+
+
+\begin{tip}[caption=Break continue pass]
+acc = 0
+for i in range(1,10):
+	if i % 2 == 0:
+		pass
+	elif i % 5 == 0:
+		break
+	elif i % 3 == 3:
+		acc = acc + 1
+	else:
+		continue
+	acc = acc + 1
+print(acc)
+\end{tip}
+
+
+
+\subsubsection*{Exercici \Roman{exercici}} \stepcounter{exercici}
+
+
+Calcula la mitjana i la moda d'una llist a de valors.
+
+
+

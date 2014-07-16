@@ -1,0 +1,91 @@
+\chapter{Escriptura i lectura de fitxers}
+
+La terminal ens ofereix una interfície volàtil per als nostres càlculs. De vegades estem interessats en guardar fitxers amb els resultats del nostre processament, o bé carregar fitxers per a llegir l'entrada del nostre sistema.
+
+\section{Lectura de fixers}
+
+Per a obrir un fitxer emprarem la funció {\tt open()} i per a tancar la funció {\tt close()}. Al obrir hem d'escollir quina serà la interacció que tindrem amb el fitxer. Tenim diverses modes 
+
+\begin{itemize}
+\item {\tt a}: Afegeix contingut al final del fitxer.
+\item {\tt r}: Només lectura.
+\item {\tt w}: Sobreescriure el fitxer existent amb nou contingut.
+\end{itemize}
+
+Al obrir el primer paràmetre serà la ruta de l'arxiu i el segon el mode d'obertura. És important que sempre que s'obri un arxiu es tanqui, sinó el nostre descriptor de fitxer quedarà obert pel sistema operatiu.
+
+\begin{blockcode}
+f = open('arxiu.txt', 'r')
+f.close()
+\end{blockcode}
+
+Un cop hem obert el fitxer podrem llegir. La lectura del fitxer anirà avançant a mesura que nosaltres anem obtenint línies de text. Tenim diverses maneres de llegir el fitxer. Podem utilitzar les funcions: 
+
+\begin{itemize}
+\item read(): per a llegir tot el fitxer en una cadena de caràcters.
+\item readline(): per a llegir línia per línia. Haurem de cridar-la mentre no arribem al final del fitxer.
+\item readlines(): per a llegir tot en una llista.
+\end{itemize}
+
+Així doncs pel següent text guardat a \emph{arxiu.txt}
+
+\begin{blockcode}
+La primera
+la segona
+i la tercera
+\end{blockcode}
+
+Si utilitzem la funció {\tt read()} tot el contingut serà una cadena de text.
+
+\begin{blockcode}
+>>> f = open('arxiu.txt', "r")
+>>> text = f.read()
+>>> print(text)
+La primera
+la segona
+i la tercera
+\end{blockcode}
+
+Amb {\tt readline()} haurem de cridar diverses vegades la funció.
+
+\begin{blockcode}
+>>> text = f.readline()
+>>> print(text)
+La primera
+>>> text = f.readline()
+>>> print(text)
+la segona
+>>> text = f.readline()
+>>> print(text)
+i la tercera
+\end{blockcode}  
+
+La funció {\tt readlines()} retornarà el contingut en una llista on cada element és una línia del text.
+
+\begin{blockcode}
+>>> text = f.readlines()
+>>> print(text)
+['La primera\n', 'la segona\n', 'i la tercera']
+\end{blockcode}  
+
+\section{Escriptura de fitxers}
+
+L'escriptura és realitza en una forma similar que la lectura. Haurem d'utilitzar el mode {\tt a} o {\tt r}. Només tenim dues funcions en aquest cas.
+
+\begin{itemize}
+\item {\tt write()}: Escriu directament tot el text
+\item {\tt writelines()}: Escriu un text en format llista.
+\end{itemize}
+
+\begin{blockcode}
+file = open("newfile.txt", "w")
+file.write("hello world in the new file\n")
+file.writelines(["linea n\n","n+1\n"])
+file.close()
+\end{blockcode}
+
+
+\subsubsection*{Exercici \Roman{exercici}} \stepcounter{exercici}
+
+Utilitzant el fitxer anterior \emph{arxiu.txt} buscar la següent subcadena de caràcters programant una funció: "\emph{a t}".
+
